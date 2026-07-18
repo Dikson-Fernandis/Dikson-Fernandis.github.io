@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dikson Luvis Fernandis — BIW Design Engineer</title>
+<style>
+  :root{
+    --paper:#F7F7F4;
+    --paper-line:#E4E3DD;
+    --ink:#16233A;
+    --ink-soft:#465064;
+    --steel:#3E5C76;
+    --accent:#E4572E;
+    --grid:#C8CCD2;
+    --card:#FFFFFF;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+    --mono: 'SF Mono', 'Courier New', Courier, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--steel);}
+
+  .sheet{
+    max-width:900px;
+    margin:0 auto;
+    padding:40px 28px 100px;
+  }
+
+  /* ---------- TITLE BLOCK (signature element) ---------- */
+  .titleblock{
+    border:2px solid var(--ink);
+    background:
+      linear-gradient(var(--paper-line) 1px, transparent 1px) 0 0/100% 24px,
+      var(--paper);
+    position:relative;
+    margin-bottom:56px;
+  }
+  .titleblock::before{
+    content:"";
+    position:absolute; inset:6px;
+    border:1px solid var(--grid);
+    pointer-events:none;
+  }
+  .tb-row{
+    display:grid;
+    grid-template-columns: 1.6fr 1fr;
+    border-bottom:1px solid var(--ink);
+  }
+  .tb-row:last-child{border-bottom:none;}
+  .tb-main{
+    padding:28px 26px 22px;
+    border-right:1px solid var(--ink);
+  }
+  .tb-eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.14em;
+    color:var(--steel);
+    text-transform:uppercase;
+  }
+  .tb-name{
+    font-family:var(--serif);
+    font-size:clamp(28px,5vw,44px);
+    font-weight:700;
+    margin:6px 0 4px;
+    letter-spacing:.01em;
+  }
+  .tb-title{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .tb-side{
+    padding:28px 26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+  .tb-side div span{color:var(--ink); }
+  .tb-cells{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+  }
+  .tb-cell{
+    padding:12px 18px;
+    border-right:1px solid var(--ink);
+    font-family:var(--mono);
+    font-size:11px;
+  }
+  .tb-cell:last-child{border-right:none;}
+  .tb-cell .lbl{
+    display:block;
+    color:var(--steel);
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    font-size:9.5px;
+    margin-bottom:4px;
+  }
+  .tb-cell .val{color:var(--ink); font-size:12px;}
+
+  @media (max-width:640px){
+    .tb-row{grid-template-columns:1fr;}
+    .tb-main{border-right:none; border-bottom:1px solid var(--ink);}
+    .tb-cells{grid-template-columns:1fr 1fr;}
+    .tb-cell:nth-child(2){border-right:none;}
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{margin-bottom:52px;}
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:20px;
+  }
+  .sec-head h2{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink);
+    margin:0;
+    white-space:nowrap;
+  }
+  .sec-head .leader{
+    flex:1;
+    height:1px;
+    background:
+      repeating-linear-gradient(90deg, var(--grid) 0 6px, transparent 6px 10px);
+  }
+  .sec-head .tag{
+    font-family:var(--mono);
+    font-size:10px;
+    color:var(--steel);
+  }
+
+  /* ---------- SUMMARY ---------- */
+  .summary p{
+    font-size:16px;
+    max-width:66ch;
+    color:var(--ink-soft);
+  }
+  .summary strong{color:var(--ink);}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:24px;
+  }
+  .skill-cat .cat-name{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--mono);
+    font-size:12px;
+    padding:5px 10px;
+    border:1px solid var(--grid);
+    background:var(--card);
+    color:var(--ink-soft);
+  }
+
+  /* ---------- EXPERIENCE ---------- */
+  .job{margin-bottom:34px;}
+  .job-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:8px 20px;
+    border-bottom:1px solid var(--paper-line);
+    padding-bottom:8px;
+    margin-bottom:16px;
+  }
+  .job-role{font-size:17px; font-weight:700;}
+  .job-org{color:var(--steel); font-weight:400;}
+  .job-date{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  .projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
+  }
+  .proj-card{
+    background:var(--card);
+    border:1px solid var(--paper-line);
+    border-left:3px solid var(--accent);
+    padding:18px 20px;
+  }
+  .proj-card .icon{margin-bottom:10px;}
+  .proj-card h3{
+    font-size:15px;
+    margin:0 0 4px;
+  }
+  .proj-card .proj-tag{
+    font-family:var(--mono);
+    font-size:10.5px;
+    color:var(--steel);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:10px;
+    display:block;
+  }
+  .proj-card ul{
+    margin:0;
+    padding-left:18px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .proj-card li{margin-bottom:5px;}
+
+  .intern-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .intern{
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    gap:20px;
+    font-size:14px;
+  }
+  .intern .who{color:var(--ink-soft);}
+  .intern .who .role{color:var(--ink); font-weight:600; display:block;}
+  .intern .who .date{font-family:var(--mono); font-size:11px;}
+  .intern .what{color:var(--ink-soft);}
+  @media (max-width:640px){
+    .intern{grid-template-columns:1fr;}
+  }
+
+  /* ---------- EDUCATION / LANGUAGES ---------- */
+  .edu-item{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px 20px;
+    padding:12px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .edu-item:last-child{border-bottom:none;}
+  .edu-name{font-weight:600;}
+  .edu-place{color:var(--ink-soft); font-size:13.5px;}
+  .edu-date{font-family:var(--mono); font-size:12px; color:var(--steel); white-space:nowrap;}
+
+  .lang-row{display:flex; flex-wrap:wrap; gap:10px;}
+  .lang-chip{
+    font-family:var(--mono);
+    font-size:12px;
+    padding:6px 12px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+  }
+
+  footer{
+    text-align:center;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--ink-soft);
+    padding-top:30px;
+    border-top:1px solid var(--paper-line);
+  }
+
+  @media print{
+    body{background:#fff;}
+    .sheet{padding:0; max-width:100%;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- TITLE BLOCK -->
+  <div class="titleblock">
+    <div class="tb-row">
+      <div class="tb-main">
+        <div class="tb-eyebrow">Body-in-White · Closure Design</div>
+        <div class="tb-name">Dikson Luvis Fernandis</div>
+        <div class="tb-title">BIW Design Engineer — Door &amp; Hood Systems</div>
+      </div>
+      <div class="tb-side">
+        <div><span>Email —</span> Dikson.Fernandis@gmail.com</div>
+        <div><span>Phone —</span> +91 83107 27337</div>
+        <div><span>LinkedIn —</span> [add your LinkedIn URL]</div>
+      </div>
+    </div>
+    <div class="tb-cells">
+      <div class="tb-cell"><span class="lbl">Current Role</span><span class="val">BIW Design Engineer, LTTS</span></div>
+      <div class="tb-cell"><span class="lbl">Experience</span><span class="val">2 Years — Closures</span></div>
+      <div class="tb-cell"><span class="lbl">Core Tools</span><span class="val">CATIA V5 · 3DEXPERIENCE</span></div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <section class="summary">
+    <div class="sec-head"><h2>Summary</h2><div class="leader"></div></div>
+    <p>
+      <strong>BIW Closure Design Engineer</strong> with two years of experience across passenger car programs,
+      including autonomous and hybrid vehicles. Focused on Door and Hood component development — Frame, Skin,
+      Hinge Patch, Reinforcements, Insulator, Panels, and Stiffeners — with a working understanding of sheet
+      metal and plastic manufacturing processes, design principles, and feasibility. Proficient in
+      <strong>CATIA V5</strong> and <strong>3DEXPERIENCE</strong>.
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <div class="sec-head"><h2>Skills</h2><div class="leader"></div></div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <div class="cat-name">Software</div>
+        <div class="chip-row">
+          <span class="chip">3DEXPERIENCE</span>
+          <span class="chip">CATIA V5</span>
+          <span class="chip">UG NX</span>
+          <span class="chip">AutoCAD</span>
+          <span class="chip">MS Office</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="cat-name">Design &amp; Process</div>
+        <div class="chip-row">
+          <span class="chip">BIW Closure Design</span>
+          <span class="chip">Sheet Metal Design</span>
+          <span class="chip">Plastic Part Design</span>
+          <span class="chip">GD&amp;T</span>
+          <span class="chip">3D Annotation &amp; Tolerancing</span>
+          <span class="chip">2D Drawings</span>
+          <span class="chip">DFMA</span>
+          <span class="chip">FMEA</span>
+          <span class="chip">Manufacturing Process</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section>
+    <div class="sec-head"><h2>Experience</h2><div class="leader"></div><span class="tag">Featured Projects</span></div>
+
+    <div class="job">
+      <div class="job-head">
+        <div><span class="job-role">BIW Design Engineer</span> — <span class="job-org">L&amp;T Technology Services (LTTS), Pune</span></div>
+        <div class="job-date">Jun 2024 — Present</div>
+      </div>
+
+      <div class="projects">
+        <div class="proj-card">
+          <div class="icon">
+            <svg width="34" height="26" viewBox="0 0 34 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 20 C2 8, 10 2, 20 2 L32 2 L32 20 Z" stroke="#3E5C76" stroke-width="1.4"/>
+              <path d="M2 20 H32" stroke="#3E5C76" stroke-width="1.4"/>
+              <path d="M6 20 C6 11, 13 5, 20 5" stroke="#E4572E" stroke-width="1.2" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <span class="proj-tag">Project 01 — Autonomous Passenger Car</span>
+          <h3>Hood / Bonnet Design</h3>
+          <ul>
+            <li>Developed parametric 3D models of Frame, Skin reinforcement, and Hinge patch</li>
+            <li>Created 3D Annotation &amp; Tolerancing for Hood components</li>
+          </ul>
+        </div>
+
+        <div class="proj-card">
+          <div class="icon">
+            <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="22" height="26" rx="1" stroke="#3E5C76" stroke-width="1.4"/>
+              <line x1="2" y1="9" x2="24" y2="9" stroke="#3E5C76" stroke-width="1"/>
+              <circle cx="21" cy="18" r="1.3" fill="#E4572E"/>
+            </svg>
+          </div>
+          <span class="proj-tag">Project 02 — Hybrid Passenger Car</span>
+          <h3>BIW Door Design</h3>
+          <ul>
+            <li>Parametric modelling of Rear Door, Panel, Reinforcement &amp; Stiffeners</li>
+            <li>Updated Door Frame template to new styling data</li>
+            <li>Matched Master Sections; coordinated with Garnish and Harness teams</li>
+            <li>Created 3D Annotation &amp; Tolerancing for Door &amp; Sash components</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div><span class="job-role">Internships</span></div>
+      </div>
+      <div class="intern-list">
+        <div class="intern">
+          <div class="who"><span class="role">Design Engineering Intern</span>Prerana Engineering, Bengaluru<div class="date">Jan 2024 – May 2024</div></div>
+          <div class="what">Disassembled and redesigned 6-axis FANUC &amp; KUKA industrial robots; designed snap gauges and VMC fixtures with manufacturing drawings; designed an encoder housing plastic part; optimized plant layout for workflow efficiency.</div>
+        </div>
+        <div class="intern">
+          <div class="who"><span class="role">Service Engineering Intern</span>Texmo Industry Authorised Service Centre<div class="date">Aug 2023 – Sep 2023</div></div>
+          <div class="what">Serviced Taro water pumps and motors, from disassembly and repair through final dispatch.</div>
+        </div>
+        <div class="intern">
+          <div class="who"><span class="role">Advanced Manufacturing Intern</span>Govt Tool Room &amp; Training Centre<div class="date">Sep 2022 – Nov 2022</div></div>
+          <div class="what">Learned CNC programming and digital manufacturing fundamentals; conducted dimensional inspection using Coordinate Measuring Machines (CMM).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section>
+    <div class="sec-head"><h2>Education</h2><div class="leader"></div></div>
+    <div class="edu-item">
+      <div>
+        <div class="edu-name">Bachelors in Industrial &amp; Production Engineering</div>
+        <div class="edu-place">JSS Science and Technology University (SJCE), Mysuru</div>
+      </div>
+      <div class="edu-date">2020 — 2024</div>
+    </div>
+    <div class="edu-item">
+      <div>
+        <div class="edu-name">12th Standard</div>
+        <div class="edu-place">St Aloysius Pre-University College, Harihar</div>
+      </div>
+      <div class="edu-date">2018 — 2020</div>
+    </div>
+    <div class="edu-item">
+      <div>
+        <div class="edu-name">10th Standard</div>
+        <div class="edu-place">Little Flower High School, Siddapur</div>
+      </div>
+      <div class="edu-date">2017 — 2018</div>
+    </div>
+  </section>
+
+  <!-- LANGUAGES -->
+  <section>
+    <div class="sec-head"><h2>Languages</h2><div class="leader"></div></div>
+    <div class="lang-row">
+      <span class="lang-chip">English</span>
+      <span class="lang-chip">Hindi</span>
+      <span class="lang-chip">Marathi</span>
+      <span class="lang-chip">Kannada</span>
+    </div>
+  </section>
+
+  <footer>
+    Sheet 1 / 1 — Dikson Luvis Fernandis — Rev A — 2026
+  </footer>
+
+</div>
+</body>
+</html>
