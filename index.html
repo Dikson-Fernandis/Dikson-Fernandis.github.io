@@ -59,18 +59,18 @@
     position:absolute; inset:0;
     z-index:-1;
     overflow:hidden;
+    opacity:.16;
   }
   .hero-photo img{
     width:100%; height:100%; object-fit:cover;
-    filter: grayscale(1) brightness(.55) contrast(1.15) sepia(.15) hue-rotate(160deg) saturate(1.4);
-    opacity:.55;
+    filter: grayscale(1) brightness(.7) contrast(1.1);
   }
   .hero-photo::after{
     content:"";
     position:absolute; inset:0;
     background:
-      linear-gradient(180deg, var(--navy-deep) 0%, rgba(8,27,51,.55) 40%, var(--navy-deep) 100%),
-      linear-gradient(90deg, var(--navy-deep) 0%, rgba(8,27,51,.3) 35%, rgba(8,27,51,.3) 65%, var(--navy-deep) 100%);
+      linear-gradient(180deg, var(--navy-deep) 0%, rgba(8,27,51,.4) 40%, var(--navy-deep) 100%),
+      linear-gradient(90deg, var(--navy-deep) 0%, rgba(8,27,51,.2) 35%, rgba(8,27,51,.2) 65%, var(--navy-deep) 100%);
   }
   .hero-eyebrow{
     font-family:var(--mono);
@@ -117,6 +117,36 @@
     opacity:.9;
   }
   @media (max-width:900px){ .hero-illustration{display:none;} }
+
+  .hero-viewport{
+    margin-top:56px;
+    border:1px solid var(--line-dim);
+    background:var(--navy-panel);
+    position:relative;
+    max-width:900px;
+  }
+  .hero-viewport::before{
+    content:"";
+    position:absolute; inset:5px;
+    border:1px solid rgba(191,225,245,.15);
+    pointer-events:none;
+  }
+  .hero-viewport-bar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 16px;
+    border-bottom:1px solid var(--line-dim);
+    font-family:var(--mono); font-size:11px; color:var(--line-dim);
+    letter-spacing:.06em; text-transform:uppercase;
+  }
+  .hero-viewport-bar .dot{color:var(--accent);}
+  .hero-viewport img{
+    display:block; width:100%; height:auto;
+  }
+  .hero-viewport-cap{
+    padding:10px 16px;
+    border-top:1px solid var(--line-dim);
+    font-family:var(--mono); font-size:11px; color:var(--line-dim);
+  }
 
   .draw{
     stroke-dasharray: 1400;
@@ -270,23 +300,18 @@
     <span><strong>LinkedIn</strong> — <a href="https://www.linkedin.com/in/dikson-fernandis/" target="_blank" rel="noopener">linkedin.com/in/dikson-fernandis</a></span>
   </div>
 
-  <svg class="hero-illustration" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- exploded door blueprint -->
-    <rect x="10" y="10" width="400" height="400" stroke="#5C86A8" stroke-width="1" opacity="0.3"/>
-    <path class="draw" d="M60 60 L60 340 L180 340 C210 340 230 300 230 220 C230 130 210 60 170 60 Z"
-      stroke="#BFE1F5" stroke-width="1.6" stroke-linejoin="round"/>
-    <path class="draw draw2" d="M85 90 L85 310 L165 310 C185 310 200 280 200 220 C200 150 185 90 155 90 Z"
-      stroke="#FF6A39" stroke-width="1.2" stroke-dasharray="4 4"/>
-    <circle class="draw draw3" cx="205" cy="140" r="6" stroke="#BFE1F5" stroke-width="1.4"/>
-    <circle class="draw draw3" cx="205" cy="300" r="6" stroke="#BFE1F5" stroke-width="1.4"/>
-    <line class="draw draw3" x1="245" y1="60" x2="245" y2="340" stroke="#5C86A8" stroke-width="1"/>
-    <line class="draw draw3" x1="240" y1="60" x2="250" y2="60" stroke="#5C86A8" stroke-width="1"/>
-    <line class="draw draw3" x1="240" y1="340" x2="250" y2="340" stroke="#5C86A8" stroke-width="1"/>
-    <text x="255" y="205" fill="#5C86A8" font-family="monospace" font-size="10">840mm</text>
-  </svg>
+  <div class="hero-viewport reveal in">
+    <div class="hero-viewport-bar">
+      <span>3DEXPERIENCE · CATIA — CAR_BIW_EXPLODED_VIEW</span>
+      <span class="dot">● LIVE MODEL</span>
+    </div>
+    <img src="biw-exploded-view.png" alt="Exploded BIW view of a car body — closures, doors, hood, roof, reinforcements and structure modelled in CATIA / 3DEXPERIENCE" loading="lazy">
+    <div class="hero-viewport-cap">Exploded assembly — Closures · Upper &amp; Under Body · Doors · Hood · Roof · BIW Reinforcements</div>
+  </div>
 
   <div class="scroll-cue"><div class="bar"></div>SCROLL</div>
 </div>
+
 
 <div class="wrap">
 
