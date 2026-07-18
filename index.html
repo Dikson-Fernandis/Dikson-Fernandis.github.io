@@ -6,380 +6,351 @@
 <title>Dikson Luvis Fernandis — BIW Design Engineer</title>
 <style>
   :root{
-    --paper:#F7F7F4;
-    --paper-line:#E4E3DD;
-    --ink:#16233A;
-    --ink-soft:#465064;
-    --steel:#3E5C76;
-    --accent:#E4572E;
-    --grid:#C8CCD2;
-    --card:#FFFFFF;
-    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
-    --mono: 'SF Mono', 'Courier New', Courier, monospace;
-    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --navy-deep:#081B33;
+    --navy:#0F2A4D;
+    --navy-panel:#13315C;
+    --line:#BFE1F5;
+    --line-dim:#5C86A8;
+    --white:#F2F8FC;
+    --accent:#FF6A39;
+    --accent-dim:#C74A22;
+    --grid-line: rgba(191,225,245,0.09);
+    --mono: 'SF Mono','JetBrains Mono','Courier New', Courier, monospace;
+    --sans: 'Helvetica Neue', Arial, -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--paper);
-    color:var(--ink);
+    background:var(--navy-deep);
+    color:var(--white);
     font-family:var(--sans);
-    line-height:1.55;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
+  a{color:var(--line);}
 
-  a{color:var(--steel);}
-
-  .sheet{
-    max-width:900px;
-    margin:0 auto;
-    padding:40px 28px 100px;
-  }
-
-  /* ---------- TITLE BLOCK (signature element) ---------- */
-  .titleblock{
-    border:2px solid var(--ink);
-    background:
-      linear-gradient(var(--paper-line) 1px, transparent 1px) 0 0/100% 24px,
-      var(--paper);
-    position:relative;
-    margin-bottom:56px;
-  }
-  .titleblock::before{
-    content:"";
-    position:absolute; inset:6px;
-    border:1px solid var(--grid);
+  /* faint blueprint grid on the whole page */
+  .grid-bg{
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+    z-index:0;
     pointer-events:none;
   }
-  .tb-row{
-    display:grid;
-    grid-template-columns: 1.6fr 1fr;
-    border-bottom:1px solid var(--ink);
-  }
-  .tb-row:last-child{border-bottom:none;}
-  .tb-main{
-    padding:28px 26px 22px;
-    border-right:1px solid var(--ink);
-  }
-  .tb-eyebrow{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:.14em;
-    color:var(--steel);
-    text-transform:uppercase;
-  }
-  .tb-name{
-    font-family:var(--serif);
-    font-size:clamp(28px,5vw,44px);
-    font-weight:700;
-    margin:6px 0 4px;
-    letter-spacing:.01em;
-  }
-  .tb-title{
-    font-family:var(--mono);
-    font-size:14px;
-    color:var(--accent);
-    text-transform:uppercase;
-    letter-spacing:.08em;
-  }
-  .tb-side{
-    padding:28px 26px;
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  /* ---------------- HERO ---------------- */
+  .hero{
+    min-height:100vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
-    gap:10px;
-    font-family:var(--mono);
-    font-size:12.5px;
-    color:var(--ink-soft);
+    position:relative;
+    padding:100px 0 60px;
+    isolation:isolate;
   }
-  .tb-side div span{color:var(--ink); }
-  .tb-cells{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
+  .hero-photo{
+    position:absolute; inset:0;
+    z-index:-1;
+    overflow:hidden;
   }
-  .tb-cell{
-    padding:12px 18px;
-    border-right:1px solid var(--ink);
-    font-family:var(--mono);
-    font-size:11px;
+  .hero-photo img{
+    width:100%; height:100%; object-fit:cover;
+    filter: grayscale(1) brightness(.55) contrast(1.15) sepia(.15) hue-rotate(160deg) saturate(1.4);
+    opacity:.55;
   }
-  .tb-cell:last-child{border-right:none;}
-  .tb-cell .lbl{
-    display:block;
-    color:var(--steel);
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    font-size:9.5px;
-    margin-bottom:4px;
+  .hero-photo::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, var(--navy-deep) 0%, rgba(8,27,51,.55) 40%, var(--navy-deep) 100%),
+      linear-gradient(90deg, var(--navy-deep) 0%, rgba(8,27,51,.3) 35%, rgba(8,27,51,.3) 65%, var(--navy-deep) 100%);
   }
-  .tb-cell .val{color:var(--ink); font-size:12px;}
-
-  @media (max-width:640px){
-    .tb-row{grid-template-columns:1fr;}
-    .tb-main{border-right:none; border-bottom:1px solid var(--ink);}
-    .tb-cells{grid-template-columns:1fr 1fr;}
-    .tb-cell:nth-child(2){border-right:none;}
-  }
-
-  /* ---------- SECTION HEADERS ---------- */
-  section{margin-bottom:52px;}
-  .sec-head{
-    display:flex;
-    align-items:baseline;
-    gap:14px;
-    margin-bottom:20px;
-  }
-  .sec-head h2{
+  .hero-eyebrow{
     font-family:var(--mono);
     font-size:13px;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:var(--ink);
-    margin:0;
-    white-space:nowrap;
-  }
-  .sec-head .leader{
-    flex:1;
-    height:1px;
-    background:
-      repeating-linear-gradient(90deg, var(--grid) 0 6px, transparent 6px 10px);
-  }
-  .sec-head .tag{
-    font-family:var(--mono);
-    font-size:10px;
-    color:var(--steel);
-  }
-
-  /* ---------- SUMMARY ---------- */
-  .summary p{
-    font-size:16px;
-    max-width:66ch;
-    color:var(--ink-soft);
-  }
-  .summary strong{color:var(--ink);}
-
-  /* ---------- SKILLS ---------- */
-  .skills-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:24px;
-  }
-  .skill-cat .cat-name{
-    font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:.08em;
+    letter-spacing:.22em;
     text-transform:uppercase;
     color:var(--accent);
-    margin-bottom:10px;
+    margin-bottom:18px;
   }
-  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
-  .chip{
-    font-family:var(--mono);
-    font-size:12px;
-    padding:5px 10px;
-    border:1px solid var(--grid);
-    background:var(--card);
-    color:var(--ink-soft);
+  .hero-eyebrow::before{content:"◢ "; }
+  .hero h1{
+    font-size:clamp(40px, 8vw, 92px);
+    font-weight:800;
+    line-height:0.98;
+    margin:0 0 20px;
+    letter-spacing:-.01em;
   }
-
-  /* ---------- EXPERIENCE ---------- */
-  .job{margin-bottom:34px;}
-  .job-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    flex-wrap:wrap;
-    gap:8px 20px;
-    border-bottom:1px solid var(--paper-line);
-    padding-bottom:8px;
-    margin-bottom:16px;
-  }
-  .job-role{font-size:17px; font-weight:700;}
-  .job-org{color:var(--steel); font-weight:400;}
-  .job-date{
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--ink-soft);
-  }
-
-  .projects{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:18px;
-  }
-  .proj-card{
-    background:var(--card);
-    border:1px solid var(--paper-line);
-    border-left:3px solid var(--accent);
-    padding:18px 20px;
-  }
-  .proj-card .icon{margin-bottom:10px;}
-  .proj-card h3{
-    font-size:15px;
-    margin:0 0 4px;
-  }
-  .proj-card .proj-tag{
-    font-family:var(--mono);
-    font-size:10.5px;
-    color:var(--steel);
-    text-transform:uppercase;
-    letter-spacing:.06em;
-    margin-bottom:10px;
+  .hero h1 span{
     display:block;
+    color:transparent;
+    -webkit-text-stroke: 1.5px var(--line);
   }
-  .proj-card ul{
-    margin:0;
-    padding-left:18px;
-    font-size:13.5px;
-    color:var(--ink-soft);
-  }
-  .proj-card li{margin-bottom:5px;}
-
-  .intern-list{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-  .intern{
-    display:grid;
-    grid-template-columns: 220px 1fr;
-    gap:20px;
-    font-size:14px;
-  }
-  .intern .who{color:var(--ink-soft);}
-  .intern .who .role{color:var(--ink); font-weight:600; display:block;}
-  .intern .who .date{font-family:var(--mono); font-size:11px;}
-  .intern .what{color:var(--ink-soft);}
-  @media (max-width:640px){
-    .intern{grid-template-columns:1fr;}
-  }
-
-  /* ---------- EDUCATION / LANGUAGES ---------- */
-  .edu-item{
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:6px 20px;
-    padding:12px 0;
-    border-bottom:1px solid var(--paper-line);
-  }
-  .edu-item:last-child{border-bottom:none;}
-  .edu-name{font-weight:600;}
-  .edu-place{color:var(--ink-soft); font-size:13.5px;}
-  .edu-date{font-family:var(--mono); font-size:12px; color:var(--steel); white-space:nowrap;}
-
-  .lang-row{display:flex; flex-wrap:wrap; gap:10px;}
-  .lang-chip{
+  .hero .role{
     font-family:var(--mono);
-    font-size:12px;
-    padding:6px 12px;
-    border:1px solid var(--ink);
-    color:var(--ink);
+    font-size:clamp(14px,2.2vw,20px);
+    color:var(--line);
+    max-width:640px;
+    border-left:2px solid var(--accent);
+    padding-left:16px;
+    margin-bottom:40px;
   }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:28px;
+    font-family:var(--mono); font-size:12.5px; color:var(--line-dim);
+  }
+  .hero-meta a{color:var(--line-dim); text-decoration:none;}
+  .hero-meta strong{color:var(--white); font-weight:600;}
+
+  .hero-illustration{
+    position:absolute;
+    right:-40px; top:50%;
+    transform:translateY(-50%);
+    width:min(46vw, 460px);
+    opacity:.9;
+  }
+  @media (max-width:900px){ .hero-illustration{display:none;} }
+
+  .draw{
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+    animation: draw 2.6s ease forwards;
+  }
+  .draw2{animation-delay:.4s;}
+  .draw3{animation-delay:.8s;}
+  @keyframes draw{ to{stroke-dashoffset:0;} }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:28px;
+    font-family:var(--mono); font-size:11px; color:var(--line-dim);
+    display:flex; align-items:center; gap:10px;
+  }
+  .scroll-cue .bar{width:1px; height:36px; background:var(--line-dim); position:relative; overflow:hidden;}
+  .scroll-cue .bar::after{
+    content:""; position:absolute; top:-100%; left:0; width:100%; height:100%;
+    background:var(--accent);
+    animation:slide 1.8s ease-in-out infinite;
+  }
+  @keyframes slide{ 0%{top:-100%;} 100%{top:100%;} }
+
+  /* ---------------- SECTION SHELL ---------------- */
+  section{padding:100px 0;}
+  .sec-tag{
+    font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:14px; display:flex; align-items:center; gap:12px;
+  }
+  .sec-tag::after{content:""; flex:1; height:1px; background:var(--line-dim); opacity:.4;}
+  .sec-title{
+    font-size:clamp(28px,4vw,44px); font-weight:800; margin:0 0 40px; letter-spacing:-.01em;
+  }
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* ---------------- SUMMARY ---------------- */
+  .summary-grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:60px; align-items:start;}
+  @media (max-width:800px){.summary-grid{grid-template-columns:1fr;}}
+  .summary-text p{font-size:18px; color:var(--line); max-width:56ch;}
+  .summary-text strong{color:var(--white);}
+  .stat-row{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  .stat{
+    border:1px solid var(--line-dim); border-radius:2px; padding:20px;
+    background:linear-gradient(180deg, rgba(255,255,255,.02), transparent);
+  }
+  .stat .num{font-size:34px; font-weight:800; color:var(--accent); font-family:var(--mono);}
+  .stat .lbl{font-size:12px; color:var(--line-dim); text-transform:uppercase; letter-spacing:.08em; margin-top:4px;}
+
+  /* ---------------- SKILLS ---------------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:0;}
+  .skill-cat{border-top:1px solid var(--line-dim); padding:26px 0;}
+  .skill-cat:first-child{border-top:1px solid var(--line-dim);}
+  @media (min-width:641px){
+    .skills-grid{border-left:1px solid var(--line-dim);}
+    .skill-cat{border-left:1px solid var(--line-dim); padding:26px 30px; border-top:none;}
+    .skill-cat:first-child{border-top:none;}
+  }
+  .skill-cat .cat-name{font-family:var(--mono); font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:.1em; margin-bottom:16px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:10px;}
+  .chip{
+    font-family:var(--mono); font-size:12.5px; padding:7px 12px;
+    border:1px solid var(--line-dim); color:var(--line);
+    transition: all .25s ease;
+  }
+  .chip:hover{ border-color:var(--accent); color:var(--white); background:rgba(255,106,57,.1); }
+
+  /* ---------------- PROJECTS ---------------- */
+  .projects{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:26px;}
+  .proj-card{
+    background:var(--navy-panel);
+    border:1px solid var(--line-dim);
+    padding:0;
+    overflow:hidden;
+    position:relative;
+    transition: transform .35s ease, border-color .35s ease;
+  }
+  .proj-card:hover{ transform:translateY(-6px); border-color:var(--accent); }
+  .proj-visual{
+    height:180px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,106,57,.12), transparent 60%),
+      var(--navy);
+    border-bottom:1px solid var(--line-dim);
+  }
+  .proj-visual img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    filter: grayscale(1) brightness(.5) contrast(1.2) sepia(.15) hue-rotate(160deg) saturate(1.5);
+    opacity:.65;
+  }
+  .proj-visual svg{width:70%; height:auto; position:relative; z-index:1;}
+  .proj-body{padding:22px 24px 26px;}
+  .proj-tag{font-family:var(--mono); font-size:10.5px; color:var(--accent); text-transform:uppercase; letter-spacing:.08em; display:block; margin-bottom:8px;}
+  .proj-body h3{font-size:19px; margin:0 0 12px;}
+  .proj-body ul{margin:0; padding-left:18px; font-size:13.8px; color:var(--line);}
+  .proj-body li{margin-bottom:7px;}
+
+  /* ---------------- EXPERIENCE TIMELINE ---------------- */
+  .timeline{position:relative; padding-left:34px;}
+  .timeline::before{
+    content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px;
+    background:linear-gradient(var(--accent), var(--line-dim) 15%, var(--line-dim));
+  }
+  .t-item{position:relative; padding-bottom:44px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{
+    content:""; position:absolute; left:-34px; top:4px; width:11px; height:11px;
+    border-radius:50%; background:var(--navy-deep); border:2px solid var(--accent);
+  }
+  .t-date{font-family:var(--mono); font-size:11.5px; color:var(--accent); margin-bottom:6px;}
+  .t-role{font-size:16.5px; font-weight:700;}
+  .t-org{color:var(--line-dim); font-weight:400; font-size:14px;}
+  .t-desc{color:var(--line); font-size:14px; margin-top:8px; max-width:70ch;}
+
+  /* ---------------- EDU / LANG ---------------- */
+  .split{display:grid; grid-template-columns:1.3fr .7fr; gap:60px;}
+  @media (max-width:800px){.split{grid-template-columns:1fr;}}
+  .edu-item{display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px 20px; padding:16px 0; border-bottom:1px solid var(--grid-line);}
+  .edu-item:last-child{border-bottom:none;}
+  .edu-name{font-weight:700;}
+  .edu-place{color:var(--line-dim); font-size:13.5px;}
+  .edu-date{font-family:var(--mono); font-size:12px; color:var(--accent); white-space:nowrap;}
+  .lang-row{display:flex; flex-wrap:wrap; gap:10px;}
+  .lang-chip{font-family:var(--mono); font-size:12px; padding:8px 14px; border:1px solid var(--accent); color:var(--white);}
 
   footer{
-    text-align:center;
-    font-family:var(--mono);
-    font-size:11px;
-    color:var(--ink-soft);
-    padding-top:30px;
-    border-top:1px solid var(--paper-line);
+    padding:60px 0 50px; text-align:center; font-family:var(--mono); font-size:11.5px; color:var(--line-dim);
+    border-top:1px solid var(--grid-line);
   }
-
-  @media print{
-    body{background:#fff;}
-    .sheet{padding:0; max-width:100%;}
-  }
+  footer .accent{color:var(--accent);}
 </style>
 </head>
 <body>
-<div class="sheet">
+<div class="grid-bg"></div>
 
-  <!-- TITLE BLOCK -->
-  <div class="titleblock">
-    <div class="tb-row">
-      <div class="tb-main">
-        <div class="tb-eyebrow">Body-in-White · Closure Design</div>
-        <div class="tb-name">Dikson Luvis Fernandis</div>
-        <div class="tb-title">BIW Design Engineer — Door &amp; Hood Systems</div>
-      </div>
-      <div class="tb-side">
-        <div><span>Email —</span> Dikson.Fernandis@gmail.com</div>
-        <div><span>Phone —</span> +91 83107 27337</div>
-        <div><span>LinkedIn —</span> [add your LinkedIn URL]</div>
-      </div>
-    </div>
-    <div class="tb-cells">
-      <div class="tb-cell"><span class="lbl">Current Role</span><span class="val">BIW Design Engineer, LTTS</span></div>
-      <div class="tb-cell"><span class="lbl">Experience</span><span class="val">2 Years — Closures</span></div>
-      <div class="tb-cell"><span class="lbl">Core Tools</span><span class="val">CATIA V5 · 3DEXPERIENCE</span></div>
-    </div>
+<!-- HERO -->
+<div class="hero wrap">
+  <div class="hero-photo">
+    <img src="https://images.unsplash.com/photo-1567789884554-0b844b597180?fm=jpg&q=70&w=2000&auto=format&fit=crop" alt="Robotic car body assembly line" loading="lazy">
+  </div>
+  <div class="hero-eyebrow">Body-in-White · Closure Design</div>
+  <h1>DIKSON LUVIS<br><span>FERNANDIS</span></h1>
+  <div class="role">BIW Design Engineer — Door &amp; Hood Systems for Passenger Vehicles</div>
+  <div class="hero-meta">
+    <a href="mailto:Dikson.Fernandis@gmail.com"><strong>Email</strong> — Dikson.Fernandis@gmail.com</a>
+    <span><strong>Phone</strong> — +91 83107 27337</span>
+    <span><strong>LinkedIn</strong> — [add your LinkedIn URL]</span>
   </div>
 
+  <svg class="hero-illustration" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- exploded door blueprint -->
+    <rect x="10" y="10" width="400" height="400" stroke="#5C86A8" stroke-width="1" opacity="0.3"/>
+    <path class="draw" d="M60 60 L60 340 L180 340 C210 340 230 300 230 220 C230 130 210 60 170 60 Z"
+      stroke="#BFE1F5" stroke-width="1.6" stroke-linejoin="round"/>
+    <path class="draw draw2" d="M85 90 L85 310 L165 310 C185 310 200 280 200 220 C200 150 185 90 155 90 Z"
+      stroke="#FF6A39" stroke-width="1.2" stroke-dasharray="4 4"/>
+    <circle class="draw draw3" cx="205" cy="140" r="6" stroke="#BFE1F5" stroke-width="1.4"/>
+    <circle class="draw draw3" cx="205" cy="300" r="6" stroke="#BFE1F5" stroke-width="1.4"/>
+    <line class="draw draw3" x1="245" y1="60" x2="245" y2="340" stroke="#5C86A8" stroke-width="1"/>
+    <line class="draw draw3" x1="240" y1="60" x2="250" y2="60" stroke="#5C86A8" stroke-width="1"/>
+    <line class="draw draw3" x1="240" y1="340" x2="250" y2="340" stroke="#5C86A8" stroke-width="1"/>
+    <text x="255" y="205" fill="#5C86A8" font-family="monospace" font-size="10">840mm</text>
+  </svg>
+
+  <div class="scroll-cue"><div class="bar"></div>SCROLL</div>
+</div>
+
+<div class="wrap">
+
   <!-- SUMMARY -->
-  <section class="summary">
-    <div class="sec-head"><h2>Summary</h2><div class="leader"></div></div>
-    <p>
-      <strong>BIW Closure Design Engineer</strong> with two years of experience across passenger car programs,
-      including autonomous and hybrid vehicles. Focused on Door and Hood component development — Frame, Skin,
-      Hinge Patch, Reinforcements, Insulator, Panels, and Stiffeners — with a working understanding of sheet
-      metal and plastic manufacturing processes, design principles, and feasibility. Proficient in
-      <strong>CATIA V5</strong> and <strong>3DEXPERIENCE</strong>.
-    </p>
+  <section class="reveal">
+    <div class="sec-tag">01 — Summary</div>
+    <div class="summary-grid">
+      <div class="summary-text">
+        <p>
+          <strong>BIW Closure Design Engineer</strong> with two years of experience across passenger car
+          programs, including autonomous and hybrid vehicles. Focused on Door and Hood component development —
+          Frame, Skin, Hinge Patch, Reinforcements, Insulator, Panels, and Stiffeners — with a working
+          understanding of sheet metal and plastic manufacturing processes, design principles, and feasibility.
+        </p>
+        <p>Proficient in <strong>CATIA V5</strong> and <strong>3DEXPERIENCE</strong>.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><div class="num">2+</div><div class="lbl">Years, Closures</div></div>
+        <div class="stat"><div class="num">2</div><div class="lbl">Vehicle Programs</div></div>
+        <div class="stat"><div class="num">4</div><div class="lbl">Internships</div></div>
+        <div class="stat"><div class="num">4</div><div class="lbl">Languages</div></div>
+      </div>
+    </div>
   </section>
 
   <!-- SKILLS -->
-  <section>
-    <div class="sec-head"><h2>Skills</h2><div class="leader"></div></div>
+  <section class="reveal">
+    <div class="sec-tag">02 — Skills</div>
     <div class="skills-grid">
       <div class="skill-cat">
         <div class="cat-name">Software</div>
         <div class="chip-row">
-          <span class="chip">3DEXPERIENCE</span>
-          <span class="chip">CATIA V5</span>
-          <span class="chip">UG NX</span>
-          <span class="chip">AutoCAD</span>
-          <span class="chip">MS Office</span>
+          <span class="chip">3DEXPERIENCE</span><span class="chip">CATIA V5</span>
+          <span class="chip">UG NX</span><span class="chip">AutoCAD</span><span class="chip">MS Office</span>
         </div>
       </div>
       <div class="skill-cat">
         <div class="cat-name">Design &amp; Process</div>
         <div class="chip-row">
-          <span class="chip">BIW Closure Design</span>
-          <span class="chip">Sheet Metal Design</span>
-          <span class="chip">Plastic Part Design</span>
-          <span class="chip">GD&amp;T</span>
-          <span class="chip">3D Annotation &amp; Tolerancing</span>
-          <span class="chip">2D Drawings</span>
-          <span class="chip">DFMA</span>
-          <span class="chip">FMEA</span>
-          <span class="chip">Manufacturing Process</span>
+          <span class="chip">BIW Closure Design</span><span class="chip">Sheet Metal Design</span>
+          <span class="chip">Plastic Part Design</span><span class="chip">GD&amp;T</span>
+          <span class="chip">3D Annotation &amp; Tolerancing</span><span class="chip">2D Drawings</span>
+          <span class="chip">DFMA</span><span class="chip">FMEA</span><span class="chip">Manufacturing Process</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-  <section>
-    <div class="sec-head"><h2>Experience</h2><div class="leader"></div><span class="tag">Featured Projects</span></div>
-
-    <div class="job">
-      <div class="job-head">
-        <div><span class="job-role">BIW Design Engineer</span> — <span class="job-org">L&amp;T Technology Services (LTTS), Pune</span></div>
-        <div class="job-date">Jun 2024 — Present</div>
-      </div>
-
-      <div class="projects">
-        <div class="proj-card">
-          <div class="icon">
-            <svg width="34" height="26" viewBox="0 0 34 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 20 C2 8, 10 2, 20 2 L32 2 L32 20 Z" stroke="#3E5C76" stroke-width="1.4"/>
-              <path d="M2 20 H32" stroke="#3E5C76" stroke-width="1.4"/>
-              <path d="M6 20 C6 11, 13 5, 20 5" stroke="#E4572E" stroke-width="1.2" stroke-dasharray="2 2"/>
-            </svg>
-          </div>
+  <!-- FEATURED PROJECTS -->
+  <section class="reveal">
+    <div class="sec-tag">03 — Featured Projects</div>
+    <div class="projects">
+      <div class="proj-card">
+        <div class="proj-visual">
+          <img src="https://images.unsplash.com/photo-1679709161252-0229a8a9b586?fm=jpg&q=70&w=1200&auto=format&fit=crop" alt="Car with hood open" loading="lazy">
+          <svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 110 C15 50, 50 20, 110 20 L185 20 L185 110 Z" stroke="#BFE1F5" stroke-width="1.6"/>
+            <path d="M15 110 H185" stroke="#BFE1F5" stroke-width="1.6"/>
+            <path d="M28 108 C28 62, 58 34, 108 34" stroke="#FF6A39" stroke-width="1.3" stroke-dasharray="3 3"/>
+            <circle cx="112" cy="30" r="3" fill="#FF6A39"/>
+            <circle cx="180" cy="30" r="3" fill="#FF6A39"/>
+          </svg>
+        </div>
+        <div class="proj-body">
           <span class="proj-tag">Project 01 — Autonomous Passenger Car</span>
           <h3>Hood / Bonnet Design</h3>
           <ul>
@@ -387,15 +358,20 @@
             <li>Created 3D Annotation &amp; Tolerancing for Hood components</li>
           </ul>
         </div>
+      </div>
 
-        <div class="proj-card">
-          <div class="icon">
-            <svg width="26" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="2" y="2" width="22" height="26" rx="1" stroke="#3E5C76" stroke-width="1.4"/>
-              <line x1="2" y1="9" x2="24" y2="9" stroke="#3E5C76" stroke-width="1"/>
-              <circle cx="21" cy="18" r="1.3" fill="#E4572E"/>
-            </svg>
-          </div>
+      <div class="proj-card">
+        <div class="proj-visual">
+          <img src="https://images.unsplash.com/photo-1714348938110-d3692bc3716a?fm=jpg&q=70&w=1200&auto=format&fit=crop" alt="Car door open" loading="lazy">
+          <svg viewBox="0 0 140 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="15" y="15" width="110" height="170" rx="4" stroke="#BFE1F5" stroke-width="1.6"/>
+            <line x1="15" y1="55" x2="125" y2="55" stroke="#BFE1F5" stroke-width="1"/>
+            <rect x="30" y="70" width="80" height="95" stroke="#FF6A39" stroke-width="1.2" stroke-dasharray="3 3"/>
+            <circle cx="112" cy="115" r="3.5" fill="#FF6A39"/>
+            <circle cx="112" cy="150" r="3.5" fill="#FF6A39"/>
+          </svg>
+        </div>
+        <div class="proj-body">
           <span class="proj-tag">Project 02 — Hybrid Passenger Car</span>
           <h3>BIW Door Design</h3>
           <ul>
@@ -407,69 +383,87 @@
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="job">
-      <div class="job-head">
-        <div><span class="job-role">Internships</span></div>
+  <!-- EXPERIENCE TIMELINE -->
+  <section class="reveal">
+    <div class="sec-tag">04 — Experience</div>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-date">JUN 2024 — PRESENT</div>
+        <div class="t-role">BIW Design Engineer</div>
+        <div class="t-org">L&amp;T Technology Services (LTTS), Pune</div>
+        <div class="t-desc">Closure design across Hood and Door systems for autonomous and hybrid passenger vehicle programs — see Featured Projects above.</div>
       </div>
-      <div class="intern-list">
-        <div class="intern">
-          <div class="who"><span class="role">Design Engineering Intern</span>Prerana Engineering, Bengaluru<div class="date">Jan 2024 – May 2024</div></div>
-          <div class="what">Disassembled and redesigned 6-axis FANUC &amp; KUKA industrial robots; designed snap gauges and VMC fixtures with manufacturing drawings; designed an encoder housing plastic part; optimized plant layout for workflow efficiency.</div>
-        </div>
-        <div class="intern">
-          <div class="who"><span class="role">Service Engineering Intern</span>Texmo Industry Authorised Service Centre<div class="date">Aug 2023 – Sep 2023</div></div>
-          <div class="what">Serviced Taro water pumps and motors, from disassembly and repair through final dispatch.</div>
-        </div>
-        <div class="intern">
-          <div class="who"><span class="role">Advanced Manufacturing Intern</span>Govt Tool Room &amp; Training Centre<div class="date">Sep 2022 – Nov 2022</div></div>
-          <div class="what">Learned CNC programming and digital manufacturing fundamentals; conducted dimensional inspection using Coordinate Measuring Machines (CMM).</div>
-        </div>
+      <div class="t-item">
+        <div class="t-date">JAN 2024 — MAY 2024</div>
+        <div class="t-role">Design Engineering Intern</div>
+        <div class="t-org">Prerana Engineering, Bengaluru</div>
+        <div class="t-desc">Disassembled and redesigned 6-axis FANUC &amp; KUKA industrial robots; designed snap gauges and VMC fixtures with manufacturing drawings; designed an encoder housing plastic part; optimized plant layout for workflow efficiency.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">AUG 2023 — SEP 2023</div>
+        <div class="t-role">Service Engineering Intern</div>
+        <div class="t-org">Texmo Industry Authorised Service Centre</div>
+        <div class="t-desc">Serviced Taro water pumps and motors, from disassembly and repair through final dispatch.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-date">SEP 2022 — NOV 2022</div>
+        <div class="t-role">Advanced Manufacturing Intern</div>
+        <div class="t-org">Govt Tool Room &amp; Training Centre</div>
+        <div class="t-desc">Learned CNC programming and digital manufacturing fundamentals; conducted dimensional inspection using Coordinate Measuring Machines (CMM).</div>
       </div>
     </div>
   </section>
 
-  <!-- EDUCATION -->
-  <section>
-    <div class="sec-head"><h2>Education</h2><div class="leader"></div></div>
-    <div class="edu-item">
+  <!-- EDUCATION / LANGUAGES -->
+  <section class="reveal">
+    <div class="sec-tag">05 — Education &amp; Languages</div>
+    <div class="split">
       <div>
-        <div class="edu-name">Bachelors in Industrial &amp; Production Engineering</div>
-        <div class="edu-place">JSS Science and Technology University (SJCE), Mysuru</div>
+        <div class="edu-item">
+          <div>
+            <div class="edu-name">Bachelors in Industrial &amp; Production Engineering</div>
+            <div class="edu-place">JSS Science and Technology University (SJCE), Mysuru</div>
+          </div>
+          <div class="edu-date">2020 — 2024</div>
+        </div>
+        <div class="edu-item">
+          <div>
+            <div class="edu-name">12th Standard</div>
+            <div class="edu-place">St Aloysius Pre-University College, Harihar</div>
+          </div>
+          <div class="edu-date">2018 — 2020</div>
+        </div>
+        <div class="edu-item">
+          <div>
+            <div class="edu-name">10th Standard</div>
+            <div class="edu-place">Little Flower High School, Siddapur</div>
+          </div>
+          <div class="edu-date">2017 — 2018</div>
+        </div>
       </div>
-      <div class="edu-date">2020 — 2024</div>
-    </div>
-    <div class="edu-item">
       <div>
-        <div class="edu-name">12th Standard</div>
-        <div class="edu-place">St Aloysius Pre-University College, Harihar</div>
+        <div class="cat-name" style="font-family:var(--mono); font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:.1em; margin-bottom:16px;">Languages</div>
+        <div class="lang-row">
+          <span class="lang-chip">English</span><span class="lang-chip">Hindi</span>
+          <span class="lang-chip">Marathi</span><span class="lang-chip">Kannada</span>
+        </div>
       </div>
-      <div class="edu-date">2018 — 2020</div>
-    </div>
-    <div class="edu-item">
-      <div>
-        <div class="edu-name">10th Standard</div>
-        <div class="edu-place">Little Flower High School, Siddapur</div>
-      </div>
-      <div class="edu-date">2017 — 2018</div>
-    </div>
-  </section>
-
-  <!-- LANGUAGES -->
-  <section>
-    <div class="sec-head"><h2>Languages</h2><div class="leader"></div></div>
-    <div class="lang-row">
-      <span class="lang-chip">English</span>
-      <span class="lang-chip">Hindi</span>
-      <span class="lang-chip">Marathi</span>
-      <span class="lang-chip">Kannada</span>
     </div>
   </section>
 
   <footer>
-    Sheet 1 / 1 — Dikson Luvis Fernandis — Rev A — 2026
+    <span class="accent">◢</span> Dikson Luvis Fernandis — BIW Design Engineer — 2026
   </footer>
-
 </div>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  }, {threshold:0.12});
+  els.forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
